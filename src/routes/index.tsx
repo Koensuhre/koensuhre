@@ -91,7 +91,7 @@ function Portfolio() {
 
       <main>
         <section id="home" className="relative flex min-h-[92vh] items-center overflow-hidden border-b-2 border-foreground px-6 pb-14 pt-28 lg:px-10">
-          <div className="kinetic-disc absolute -right-24 top-28 size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
+          <div className="kinetic-disc absolute -right-12 top-28 size-56 sm:-right-24 sm:size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
           <div className="mx-auto w-full max-w-[1380px]">
             <div className="mb-8 flex items-center justify-between border-b-2 border-foreground pb-4 text-xs font-medium uppercase">
               <span>Portfolio / 2026</span><span className="hidden sm:block">Enschede — Nederland</span>
@@ -187,7 +187,7 @@ function SkillSlider() {
           </article>
         ))}
       </div>
-      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className="h-full bg-primary transition-[width] duration-500" style={{ width: `${((active + 1) / skillGroups.length) * 100}%` }} /></div></div>
+      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className={`h-full bg-primary transition-[width] duration-500 ${active === 0 ? "w-1/3" : active === 1 ? "w-2/3" : "w-full"}`} /></div></div>
     </section>
   );
 }

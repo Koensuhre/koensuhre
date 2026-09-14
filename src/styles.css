@@ -240,6 +240,9 @@
   letter-spacing: 0;
 }
 @utility skill-rail {
+  width: 100%;
+  max-width: 100vw;
+  contain: inline-size;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   overscroll-behavior-inline: contain;
@@ -300,6 +303,6 @@
 }
 
 @media (max-width: 640px) {
-  .hero-type { font-size: clamp(4.5rem, 24vw, 7rem); line-height: 0.74; }
-  .section-title { font-size: clamp(3.6rem, 18vw, 6rem); line-height: 0.82; }
+  .hero-type { font-size: clamp(4.15rem, 21vw, 6rem); line-height: 0.76; }
+  .section-title { font-size: clamp(3.35rem, 16.5vw, 5.25rem); line-height: 0.84; overflow-wrap: anywhere; }
 }
