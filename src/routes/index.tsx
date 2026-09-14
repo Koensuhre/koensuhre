@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
-import { ArrowDown, ArrowRight, Check, ExternalLink, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent, type UIEvent } from "react";
+import { ArrowDown, ArrowLeft, ArrowRight, Check, ExternalLink, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import webagency from "@/assets/case-webagency.jpg";
 import heynoona from "@/assets/case-heynoona.jpg";
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
-const nav = [["Werk", "cases"], ["Over", "over"], ["Werkwijze", "aanpak"], ["Contact", "contact"]] as const;
+const nav = [["Werk", "cases"], ["Over", "over"], ["Skills", "skills"], ["Werkwijze", "aanpak"], ["Contact", "contact"]] as const;
 
 const disciplines = [
   ["01", "Webdesign & development", "Van eerste schets tot een snelle, toegankelijke website."],
@@ -35,6 +35,12 @@ const cases = [
   { number: "02", name: "Hey Noona", url: "heynoona.nl", note: "Merk, web en beeld", image: heynoona, text: "Een expressieve merkwereld waarin verhalen, fotografie en digitaal ontwerp als één geheel aanvoelen." },
   { number: "03", name: "Werkgenoten", url: "werkgenoten.online", note: "Platform en gebruikservaring", image: werkgenoten, text: "Een toegankelijk platform voor nieuwe ontmoetingen op de werkvloer, met ruimte voor twee verschillende doelgroepen." },
 ];
+
+const skillGroups = [
+  { label: "Adobe & design", number: "01", lead: "Van idee naar beeld, beweging en een helder systeem.", tools: ["Creative Cloud", "Photoshop", "Illustrator", "InDesign", "Premiere Pro", "After Effects", "Figma"] },
+  { label: "Google marketing", number: "02", lead: "Meten wat mensen doen, begrijpen waarom en gericht bijsturen.", tools: ["Google Ads", "Analytics 4", "Tag Manager", "Search Console", "Looker Studio"] },
+  { label: "CMS & automation", number: "03", lead: "Digitale omgevingen die prettig blijven werken en meegroeien.", tools: ["WordPress", "Webflow", "HubSpot", "Zapier"] },
+] as const;
 
 function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -85,7 +91,7 @@ function Portfolio() {
 
       <main>
         <section id="home" className="relative flex min-h-[92vh] items-center overflow-hidden border-b-2 border-foreground px-6 pb-14 pt-28 lg:px-10">
-          <div className="kinetic-disc absolute -right-24 top-28 size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
+          <div className="kinetic-disc absolute -right-12 top-28 size-56 sm:-right-24 sm:size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
           <div className="mx-auto w-full max-w-[1380px]">
             <div className="mb-8 flex items-center justify-between border-b-2 border-foreground pb-4 text-xs font-medium uppercase">
               <span>Portfolio / 2026</span><span className="hidden sm:block">Enschede — Nederland</span>
@@ -108,23 +114,25 @@ function Portfolio() {
         <section id="over" className="overflow-hidden border-b-2 border-foreground px-6 py-28 lg:px-10 lg:py-44">
           <div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12">
             <div className="reveal lg:col-span-4"><Eyebrow text="Over" /><p className="mt-8 max-w-xs text-sm leading-7 text-muted-foreground">Vanuit Enschede werk ik met organisaties en mensen die aandacht hebben voor wat ze maken.</p></div>
-            <div className="reveal lg:col-span-8"><h2 className="max-w-5xl text-5xl font-bold uppercase leading-[0.92] md:text-8xl">Tussen idee en <span className="outline-word">uitvoering</span> voel ik me thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
+            <div className="reveal lg:col-span-8"><h2 className="section-title max-w-6xl uppercase">Tussen idee en <span className="serif-cut text-primary">uitvoering</span> voel ik me thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
           </div>
         </section>
 
         <section id="diensten" className="border-b-2 border-foreground bg-signal px-6 py-28 text-signal-foreground lg:px-10 lg:py-40">
-          <div className="mx-auto max-w-[1380px]"><div className="reveal max-w-5xl"><Eyebrow text="Wat ik maak" /><h2 className="mt-7 text-5xl font-bold uppercase leading-none md:text-8xl">Verschillende disciplines.<br />Eén handschrift.</h2></div>
+           <div className="mx-auto max-w-[1380px]"><div className="reveal max-w-6xl"><Eyebrow text="Wat ik maak" /><h2 className="section-title mt-7 uppercase">Verschillende <span className="serif-cut">disciplines.</span><br />Eén handschrift.</h2></div>
             <div className="mt-20 grid gap-x-12 md:grid-cols-2">{disciplines.map(([number, title, text], index) => <article key={title} className={`reveal border-t-2 border-signal-foreground py-10 ${index % 2 ? "md:translate-y-16" : ""}`}><span className="text-xs">{number}</span><h3 className="mt-6 text-2xl font-bold uppercase md:text-3xl">{title}</h3><p className="mt-4 max-w-md leading-7 opacity-70">{text}</p></article>)}</div>
           </div>
         </section>
 
+        <SkillSlider />
+
         <section id="cases" className="px-6 py-28 lg:px-10 lg:py-44">
-          <div className="mx-auto max-w-[1380px]"><div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><Eyebrow text="Geselecteerd werk" /><h2 className="mt-7 text-6xl font-bold uppercase md:text-9xl">Werk/<span className="text-primary">03</span></h2></div><p className="max-w-sm leading-7 text-muted-foreground">Een selectie van projecten waarin strategie, ontwerp en uitvoering elkaar aanvullen.</p></div>
+          <div className="mx-auto max-w-[1380px]"><div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><Eyebrow text="Geselecteerd werk" /><h2 className="section-title mt-7 uppercase">Werk/<span className="serif-cut text-primary">03</span></h2></div><p className="max-w-sm leading-7 text-muted-foreground">Een selectie van projecten waarin strategie, ontwerp en uitvoering elkaar aanvullen.</p></div>
             <div className="mt-24 space-y-36">{cases.map((project, index) => <article key={project.name} className="reveal grid items-center gap-10 lg:grid-cols-12"><div className={`project-frame group lg:col-span-8 ${index % 2 ? "lg:order-2 lg:translate-x-10" : "lg:-translate-x-10"}`} data-scroll-speed={index % 2 ? "-0.035" : "0.035"}><img src={project.image} alt={`Ontwerp voor ${project.name}`} width={1280} height={912} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-1000 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-signal px-4 py-3 font-display text-xl font-bold text-signal-foreground">{project.number}</span></div><div className={`relative z-10 lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs uppercase text-primary">{project.note}</p><h3 className="mt-5 text-4xl font-bold uppercase md:text-6xl">{project.name}</h3><p className="mt-6 text-lg leading-8 text-muted-foreground">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="story-link mt-8 inline-flex items-center gap-2 pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
           </div>
         </section>
 
-        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><Eyebrow text="Werkwijze" light /><h2 className="mt-7 max-w-5xl text-5xl font-bold uppercase leading-[0.95] md:text-8xl">Rust in het proces.<br /><span className="text-signal">Ruimte voor ideeën.</span></h2><div className="mt-20 grid gap-10 md:grid-cols-4">{[["01", "Luisteren", "We beginnen bij de context, de mensen en de vraag achter de vraag."], ["02", "Verkennen", "Richting ontstaat in schetsen, woorden, beelden en kleine experimenten."], ["03", "Maken", "Ontwerp en techniek groeien samen, met regelmatige momenten om te kijken."], ["04", "Verfijnen", "Na de eerste versie blijven details, snelheid en inhoud aandacht krijgen."]].map(([number, title, text]) => <article key={title} className="reveal border-t-2 border-background/40 pt-7"><span className="text-xs text-signal">{number}</span><h3 className="mt-10 text-2xl font-bold uppercase">{title}</h3><p className="mt-4 text-sm leading-7 text-background/65">{text}</p></article>)}</div></div></section>
+        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><Eyebrow text="Werkwijze" light /><h2 className="section-title mt-7 max-w-6xl uppercase">Rust in het proces.<br /><span className="serif-cut text-signal">Ruimte voor ideeën.</span></h2><div className="mt-20 grid gap-10 md:grid-cols-4">{[["01", "Luisteren", "We beginnen bij de context, de mensen en de vraag achter de vraag."], ["02", "Verkennen", "Richting ontstaat in schetsen, woorden, beelden en kleine experimenten."], ["03", "Maken", "Ontwerp en techniek groeien samen, met regelmatige momenten om te kijken."], ["04", "Verfijnen", "Na de eerste versie blijven details, snelheid en inhoud aandacht krijgen."]].map(([number, title, text]) => <article key={title} className="reveal border-t-2 border-background/40 pt-7"><span className="text-xs text-signal">{number}</span><h3 className="mt-10 text-2xl font-bold uppercase">{title}</h3><p className="mt-4 text-sm leading-7 text-background/65">{text}</p></article>)}</div></div></section>
 
         <section className="px-6 py-28 lg:px-10 lg:py-40"><div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12"><div className="lg:col-span-4"><Eyebrow text="Samenwerken" /></div><blockquote className="reveal lg:col-span-7"><p className="font-display text-3xl leading-snug md:text-5xl">“Koen stelt aandachtige vragen en vertaalt complexe ideeën naar iets dat helder en vanzelfsprekend voelt.”</p><footer className="mt-8 text-sm text-muted-foreground">Voorbeeldtekst — te vervangen door een geverifieerde reactie</footer></blockquote></div></section>
 
@@ -133,10 +141,53 @@ function Portfolio() {
               </div></div></section>
       </main>
 
-      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p></div><div className="flex gap-6 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© {new Date().getFullYear()}</p></div></footer>
+      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© {new Date().getFullYear()}</p></div></footer>
     </div>
   );
 }
 
 function Eyebrow({ text, light = false }: { text: string; light?: boolean }) { return <p className={`flex items-center gap-3 text-xs font-medium uppercase ${light ? "text-background/60" : "text-muted-foreground"}`}><span className={`h-px w-9 ${light ? "bg-signal" : "bg-primary"}`} />{text}</p>; }
 function Field({ label, name, type = "text", placeholder, required = false }: { label: string; name: string; type?: string; placeholder: string; required?: boolean }) { return <label className="block text-sm">{label}<input required={required} name={name} type={type} placeholder={placeholder} className="mt-2 h-12 w-full rounded-full border border-border bg-card px-5 outline-none placeholder:text-muted-foreground/60 focus:border-primary" /></label>; }
+
+function SkillSlider() {
+  const railRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const move = (direction: -1 | 1) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const next = Math.max(0, Math.min(skillGroups.length - 1, active + direction));
+    rail.children.item(next)?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    setActive(next);
+  };
+
+  const syncActive = (event: UIEvent<HTMLDivElement>) => {
+    const rail = event.currentTarget;
+    const width = rail.firstElementChild?.getBoundingClientRect().width ?? rail.clientWidth;
+    if (width > 0) setActive(Math.min(skillGroups.length - 1, Math.round(rail.scrollLeft / width)));
+  };
+
+  return (
+    <section id="skills" className="overflow-hidden border-b-2 border-foreground bg-secondary py-28 lg:py-40" aria-labelledby="skills-title">
+      <div className="mx-auto max-w-[1380px] px-6 lg:px-10">
+        <div className="reveal flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+          <div><Eyebrow text="Tools & platforms" /><h2 id="skills-title" className="section-title mt-7 max-w-5xl uppercase">Gereedschap voor <span className="serif-cut text-primary">ideeën.</span></h2></div>
+          <div className="flex items-center gap-3 self-end">
+            <Button variant="editorial" size="icon" onClick={() => move(-1)} disabled={active === 0} aria-label="Vorige skillgroep"><ArrowLeft /></Button>
+            <span className="min-w-20 text-center text-xs font-medium" aria-live="polite">0{active + 1} / 0{skillGroups.length}</span>
+            <Button variant="editorial" size="icon" onClick={() => move(1)} disabled={active === skillGroups.length - 1} aria-label="Volgende skillgroep"><ArrowRight /></Button>
+          </div>
+        </div>
+      </div>
+      <div ref={railRef} onScroll={syncActive} onKeyDown={(event) => { if (event.key === "ArrowRight") move(1); if (event.key === "ArrowLeft") move(-1); }} tabIndex={0} role="region" aria-label="Skillgroepen" className="skill-rail mt-16 flex gap-5 overflow-x-auto px-6 pb-8 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary lg:gap-8 lg:px-[max(2.5rem,calc((100vw-1380px)/2))]">
+        {skillGroups.map((group) => (
+          <article key={group.label} className="skill-slide relative flex min-h-[30rem] w-[84vw] shrink-0 flex-col justify-between overflow-hidden border-2 border-foreground bg-background p-7 md:w-[58vw] md:p-10 lg:w-[48rem]">
+            <div className="flex items-start justify-between gap-6"><p className="text-xs font-semibold uppercase text-primary">{group.label}</p><span className="skill-number text-7xl leading-none text-primary/25 md:text-9xl">{group.number}</span></div>
+            <div><h3 className="max-w-xl text-3xl font-bold uppercase leading-tight md:text-5xl">{group.lead}</h3><ul className="mt-10 flex flex-wrap gap-2" aria-label={`Programma's voor ${group.label}`}>{group.tools.map((tool) => <li key={tool} className="rounded-full border border-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground hover:text-background">{tool}</li>)}</ul></div>
+          </article>
+        ))}
+      </div>
+      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className={`h-full bg-primary transition-[width] duration-500 ${active === 0 ? "w-1/3" : active === 1 ? "w-2/3" : "w-full"}`} /></div></div>
+    </section>
+  );
+}

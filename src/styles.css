@@ -21,6 +21,7 @@
 @theme inline {
   --font-sans: "DM Sans", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
+  --font-serif: "Instrument Serif", serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -158,7 +159,7 @@
     overflow-x: hidden;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
   h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
   ::selection { background: var(--signal); color: var(--signal-foreground); }
 }
@@ -183,8 +184,9 @@
   filter: blur(1px);
 }
 @utility hero-type {
-  font-size: clamp(4.25rem, 12vw, 11rem);
-  line-height: 0.77;
+  font-size: clamp(5.25rem, 15vw, 14rem);
+  line-height: 0.72;
+  letter-spacing: 0;
 }
 @utility hero-line {
   display: block;
@@ -223,6 +225,37 @@
 @utility outline-word {
   color: transparent;
   -webkit-text-stroke: 2px var(--foreground);
+}
+@utility serif-cut {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+}
+@utility section-title {
+  font-size: clamp(4rem, 9.5vw, 9.5rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: 0;
+}
+@utility skill-rail {
+  width: 100%;
+  max-width: 100vw;
+  contain: inline-size;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility skill-slide {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+@utility skill-number {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-variant-numeric: oldstyle-nums;
 }
 @utility project-frame {
   position: relative;
@@ -267,4 +300,9 @@
   .reveal { opacity: 1; transform: none; }
   .marquee-track { animation: none; }
   .hero-line, .kinetic-disc, .project-frame { transform: none; }
+}
+
+@media (max-width: 640px) {
+  .hero-type { font-size: clamp(4.15rem, 21vw, 6rem); line-height: 0.76; }
+  .section-title { font-size: clamp(3.35rem, 16.5vw, 5.25rem); line-height: 0.84; overflow-wrap: anywhere; }
 }
