@@ -141,7 +141,7 @@ function Portfolio() {
               </div></div></section>
       </main>
 
-      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p></div><div className="flex gap-6 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© {new Date().getFullYear()}</p></div></footer>
+      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© {new Date().getFullYear()}</p></div></footer>
     </div>
   );
 }
