@@ -24,10 +24,11 @@ export const Route = createFileRoute("/")({
 const nav = [["Werk", "cases"], ["Over", "over"], ["Skills", "skills"], ["Werkwijze", "aanpak"], ["Contact", "contact"]] as const;
 
 const disciplines = [
-  ["01", "Webdesign & development", "Van eerste schets tot een snelle, toegankelijke website."],
-  ["02", "Identiteit & digitaal ontwerp", "Een visuele taal die past bij wie je bent en wat je wilt vertellen."],
-  ["03", "Fotografie, film & beweging", "Eigen beeld dat sfeer, mensen en details eerlijk vastlegt."],
-  ["04", "Vindbaarheid & verfijning", "Aandacht voor structuur, techniek en wat na de lancering beter kan."],
+  ["01", "Webdesign & development", "Van eerste schets tot een snelle, toegankelijke website die ook technisch klaar is om gevonden te worden."],
+  ["02", "Identiteit & digitaal ontwerp", "Een visuele taal die past bij wie je bent en die consistent werkt over elke plek waar je zichtbaar bent."],
+  ["03", "Online vindbaarheid & groei", "SEO, contentstructuur en data waar marketeers blij van worden — zonder het gevoel van een advertentie."],
+  ["04", "Fotografie, film & beweging", "Eigen beeld dat sfeer, mensen en details eerlijk vastlegt, klaar om je verhaal te ondersteunen."],
+  ["05", "Analyse & verfijning", "Meten, begrijpen en doorbijschaven zodat je site en content steeds beter aansluiten op je doelgroep."],
 ];
 
 const cases = [
