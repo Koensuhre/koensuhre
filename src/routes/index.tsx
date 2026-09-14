@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { ArrowDown, ArrowRight, Check, ExternalLink, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import portrait from "@/assets/koen-portrait.jpg";
 import webagency from "@/assets/case-webagency.jpg";
 import heynoona from "@/assets/case-heynoona.jpg";
 import werkgenoten from "@/assets/case-werkgenoten.jpg";
@@ -47,7 +46,22 @@ function Portfolio() {
       { threshold: 0.12 },
     );
     document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    let frame = 0;
+    const move = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty("--page-scroll", `${window.scrollY}px`);
+        document.querySelectorAll<HTMLElement>("[data-scroll-speed]").forEach((element) => {
+          const speed = Number(element.dataset["scrollSpeed"] ?? 0);
+          const rect = element.getBoundingClientRect();
+          const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+          element.style.setProperty("--scroll-shift", `${offset}px`);
+        });
+      });
+    };
+    move();
+    window.addEventListener("scroll", move, { passive: true });
+    return () => { observer.disconnect(); window.removeEventListener("scroll", move); cancelAnimationFrame(frame); };
   }, []);
 
   const go = (id: string) => {
@@ -70,43 +84,47 @@ function Portfolio() {
       </header>
 
       <main>
-        <section id="home" className="relative flex min-h-[94vh] items-center overflow-hidden px-6 pb-16 pt-32 lg:px-10">
-          <div className="organic-field absolute -right-32 top-24 size-[32rem] opacity-70" aria-hidden="true" />
-          <div className="mx-auto grid w-full max-w-[1380px] gap-16 lg:grid-cols-12 lg:items-center">
-            <div className="relative z-10 lg:col-span-7">
-              <p className="mb-8 flex items-center gap-3 text-xs font-medium uppercase text-muted-foreground"><span className="size-2 rounded-full bg-signal" /> Webdesigner & maker in Nederland</p>
-              <h1 className="text-[clamp(4rem,9vw,8.5rem)] font-medium leading-[0.84]">Koen <span className="text-primary">Suhre</span></h1>
-              <p className="mt-9 max-w-2xl text-xl font-light leading-relaxed text-muted-foreground md:text-2xl">Ik ontwerp en bouw digitale ervaringen, met evenveel aandacht voor <span className="text-foreground">beeld, techniek en verhaal.</span></p>
-              <div className="mt-10 flex flex-wrap items-center gap-5"><Button size="lg" onClick={() => go("cases")}>Bekijk mijn werk <ArrowDown /></Button><Button variant="link" size="lg" onClick={() => go("over")}>Meer over mij</Button></div>
+        <section id="home" className="relative flex min-h-[92vh] items-center overflow-hidden border-b-2 border-foreground px-6 pb-14 pt-28 lg:px-10">
+          <div className="kinetic-disc absolute -right-24 top-28 size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
+          <div className="mx-auto w-full max-w-[1380px]">
+            <div className="mb-8 flex items-center justify-between border-b-2 border-foreground pb-4 text-xs font-medium uppercase">
+              <span>Portfolio / 2026</span><span className="hidden sm:block">Enschede — Nederland</span>
             </div>
-            <div className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
-              <div className="portrait-shell reveal"><img src={portrait} alt="Koen Suhre in zijn creatieve werkruimte" width={1024} height={1280} className="aspect-[4/5] w-full object-cover" /></div>
-              <div className="absolute -bottom-8 -left-3 max-w-56 rotate-2 rounded-3xl border border-card bg-card/90 p-6 shadow-soft backdrop-blur md:-left-12"><p className="font-display text-xl leading-snug">Nieuwsgierig naar hoe dingen beter kunnen.</p><p className="mt-3 text-xs text-muted-foreground">Ontwerpfilosofie</p></div>
-              <div className="absolute right-0 top-10 -rotate-3 rounded-2xl bg-primary px-5 py-3 text-sm text-primary-foreground shadow-soft">Design · Code · Beeld</div>
+            <h1 className="hero-type relative z-10 font-bold uppercase">
+              <span className="hero-line hero-line-left">Web</span>
+              <span className="hero-line hero-line-right text-primary">Designer</span>
+              <span className="hero-line hero-line-left">& Maker</span>
+            </h1>
+            <div className="mt-10 grid gap-8 border-t-2 border-foreground pt-7 md:grid-cols-3 md:items-end">
+              <p className="max-w-sm text-lg leading-snug">Ik ontwerp en bouw digitale ervaringen waarin beeld, techniek en verhaal samenkomen.</p>
+              <p className="text-sm leading-6 text-muted-foreground md:col-start-2">Webdesign · development<br />fotografie · film · strategie</p>
+              <button onClick={() => go("cases")} className="group ml-auto flex size-24 items-center justify-center rounded-full border-2 border-foreground transition-colors hover:bg-foreground hover:text-background" aria-label="Bekijk mijn werk"><ArrowDown className="size-7 transition-transform group-hover:translate-y-2" /></button>
             </div>
           </div>
         </section>
 
-        <section id="over" className="px-6 py-28 lg:px-10 lg:py-44">
+        <div className="marquee" aria-hidden="true"><div className="marquee-track">DESIGN — CODE — BEELD — IDEEËN — DESIGN — CODE — BEELD — IDEEËN —</div></div>
+
+        <section id="over" className="overflow-hidden border-b-2 border-foreground px-6 py-28 lg:px-10 lg:py-44">
           <div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12">
             <div className="reveal lg:col-span-4"><Eyebrow text="Over" /><p className="mt-8 max-w-xs text-sm leading-7 text-muted-foreground">Vanuit Enschede werk ik met organisaties en mensen die aandacht hebben voor wat ze maken.</p></div>
-            <div className="reveal lg:col-span-8"><h2 className="max-w-4xl text-4xl font-medium leading-tight md:text-7xl">Tussen idee en uitvoering voel ik me het meest thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
+            <div className="reveal lg:col-span-8"><h2 className="max-w-5xl text-5xl font-bold uppercase leading-[0.92] md:text-8xl">Tussen idee en <span className="outline-word">uitvoering</span> voel ik me thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
           </div>
         </section>
 
-        <section id="diensten" className="bg-secondary/55 px-6 py-28 lg:px-10 lg:py-40">
-          <div className="mx-auto max-w-[1380px]"><div className="reveal max-w-3xl"><Eyebrow text="Wat ik maak" /><h2 className="mt-7 text-5xl font-medium md:text-7xl">Verschillende disciplines,<br />één handschrift.</h2></div>
-            <div className="mt-20 grid gap-x-12 md:grid-cols-2">{disciplines.map(([number, title, text], index) => <article key={title} className={`reveal border-t border-border py-10 ${index % 2 ? "md:translate-y-16" : ""}`}><span className="text-xs text-primary">{number}</span><h3 className="mt-6 text-2xl font-medium md:text-3xl">{title}</h3><p className="mt-4 max-w-md leading-7 text-muted-foreground">{text}</p></article>)}</div>
+        <section id="diensten" className="border-b-2 border-foreground bg-signal px-6 py-28 text-signal-foreground lg:px-10 lg:py-40">
+          <div className="mx-auto max-w-[1380px]"><div className="reveal max-w-5xl"><Eyebrow text="Wat ik maak" /><h2 className="mt-7 text-5xl font-bold uppercase leading-none md:text-8xl">Verschillende disciplines.<br />Eén handschrift.</h2></div>
+            <div className="mt-20 grid gap-x-12 md:grid-cols-2">{disciplines.map(([number, title, text], index) => <article key={title} className={`reveal border-t-2 border-signal-foreground py-10 ${index % 2 ? "md:translate-y-16" : ""}`}><span className="text-xs">{number}</span><h3 className="mt-6 text-2xl font-bold uppercase md:text-3xl">{title}</h3><p className="mt-4 max-w-md leading-7 opacity-70">{text}</p></article>)}</div>
           </div>
         </section>
 
         <section id="cases" className="px-6 py-28 lg:px-10 lg:py-44">
-          <div className="mx-auto max-w-[1380px]"><div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><Eyebrow text="Geselecteerd werk" /><h2 className="mt-7 text-6xl font-medium md:text-8xl">Drie verhalen.</h2></div><p className="max-w-sm leading-7 text-muted-foreground">Een selectie van projecten waarin strategie, ontwerp en uitvoering elkaar aanvullen.</p></div>
-            <div className="mt-24 space-y-36">{cases.map((project, index) => <article key={project.name} className="reveal grid items-center gap-10 lg:grid-cols-12"><div className={`group overflow-hidden rounded-[2rem] lg:col-span-7 ${index % 2 ? "lg:order-2 lg:translate-y-12" : ""}`}><img src={project.image} alt={`Ontwerp voor ${project.name}`} width={1280} height={912} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-1000 group-hover:scale-[1.025]" /></div><div className={`lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs text-primary">{project.number} · {project.note}</p><h3 className="mt-5 text-4xl font-medium md:text-5xl">{project.name}</h3><p className="mt-6 text-lg leading-8 text-muted-foreground">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 border-b border-foreground pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
+          <div className="mx-auto max-w-[1380px]"><div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><Eyebrow text="Geselecteerd werk" /><h2 className="mt-7 text-6xl font-bold uppercase md:text-9xl">Werk/<span className="text-primary">03</span></h2></div><p className="max-w-sm leading-7 text-muted-foreground">Een selectie van projecten waarin strategie, ontwerp en uitvoering elkaar aanvullen.</p></div>
+            <div className="mt-24 space-y-36">{cases.map((project, index) => <article key={project.name} className="reveal grid items-center gap-10 lg:grid-cols-12"><div className={`project-frame group lg:col-span-8 ${index % 2 ? "lg:order-2 lg:translate-x-10" : "lg:-translate-x-10"}`} data-scroll-speed={index % 2 ? "-0.035" : "0.035"}><img src={project.image} alt={`Ontwerp voor ${project.name}`} width={1280} height={912} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-1000 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-signal px-4 py-3 font-display text-xl font-bold text-signal-foreground">{project.number}</span></div><div className={`relative z-10 lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs uppercase text-primary">{project.note}</p><h3 className="mt-5 text-4xl font-bold uppercase md:text-6xl">{project.name}</h3><p className="mt-6 text-lg leading-8 text-muted-foreground">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="story-link mt-8 inline-flex items-center gap-2 pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
           </div>
         </section>
 
-        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><Eyebrow text="Werkwijze" light /><h2 className="mt-7 max-w-4xl text-5xl font-medium leading-tight md:text-7xl">Rust in het proces geeft ruimte aan goede ideeën.</h2><div className="mt-20 grid gap-10 md:grid-cols-4">{[["01", "Luisteren", "We beginnen bij de context, de mensen en de vraag achter de vraag."], ["02", "Verkennen", "Richting ontstaat in schetsen, woorden, beelden en kleine experimenten."], ["03", "Maken", "Ontwerp en techniek groeien samen, met regelmatige momenten om te kijken."], ["04", "Verfijnen", "Na de eerste versie blijven details, snelheid en inhoud aandacht krijgen."]].map(([number, title, text]) => <article key={title} className="reveal border-t border-background/25 pt-7"><span className="text-xs text-signal">{number}</span><h3 className="mt-10 text-2xl font-medium">{title}</h3><p className="mt-4 text-sm leading-7 text-background/65">{text}</p></article>)}</div></div></section>
+        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><Eyebrow text="Werkwijze" light /><h2 className="mt-7 max-w-5xl text-5xl font-bold uppercase leading-[0.95] md:text-8xl">Rust in het proces.<br /><span className="text-signal">Ruimte voor ideeën.</span></h2><div className="mt-20 grid gap-10 md:grid-cols-4">{[["01", "Luisteren", "We beginnen bij de context, de mensen en de vraag achter de vraag."], ["02", "Verkennen", "Richting ontstaat in schetsen, woorden, beelden en kleine experimenten."], ["03", "Maken", "Ontwerp en techniek groeien samen, met regelmatige momenten om te kijken."], ["04", "Verfijnen", "Na de eerste versie blijven details, snelheid en inhoud aandacht krijgen."]].map(([number, title, text]) => <article key={title} className="reveal border-t-2 border-background/40 pt-7"><span className="text-xs text-signal">{number}</span><h3 className="mt-10 text-2xl font-bold uppercase">{title}</h3><p className="mt-4 text-sm leading-7 text-background/65">{text}</p></article>)}</div></div></section>
 
         <section className="px-6 py-28 lg:px-10 lg:py-40"><div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12"><div className="lg:col-span-4"><Eyebrow text="Samenwerken" /></div><blockquote className="reveal lg:col-span-7"><p className="font-display text-3xl leading-snug md:text-5xl">“Koen stelt aandachtige vragen en vertaalt complexe ideeën naar iets dat helder en vanzelfsprekend voelt.”</p><footer className="mt-8 text-sm text-muted-foreground">Voorbeeldtekst — te vervangen door een geverifieerde reactie</footer></blockquote></div></section>
 

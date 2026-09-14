@@ -182,6 +182,76 @@
   background: color-mix(in oklab, var(--secondary) 78%, var(--signal));
   filter: blur(1px);
 }
+@utility hero-type {
+  font-size: clamp(4.25rem, 12vw, 11rem);
+  line-height: 0.77;
+}
+@utility hero-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  transform: translateX(var(--hero-drift, 0));
+  transition: transform 120ms linear;
+}
+@utility hero-line-left { --hero-drift: calc(var(--page-scroll, 0px) * -0.07); }
+@utility hero-line-right {
+  margin-left: auto;
+  --hero-drift: calc(var(--page-scroll, 0px) * 0.06);
+}
+@utility kinetic-disc {
+  border: clamp(1.5rem, 4vw, 4rem) solid var(--signal);
+  border-radius: 50%;
+  opacity: 0.8;
+  transform: translateY(var(--scroll-shift, 0px)) rotate(calc(var(--page-scroll, 0px) * 0.03));
+  transition: transform 120ms linear;
+}
+@utility marquee {
+  overflow: hidden;
+  border-bottom: 2px solid var(--foreground);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding-block: 1.1rem;
+}
+@utility marquee-track {
+  width: max-content;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  animation: marquee-slide 20s linear infinite;
+}
+@utility outline-word {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--foreground);
+}
+@utility project-frame {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--foreground);
+  box-shadow: 14px 14px 0 var(--signal);
+  transform: translateY(var(--scroll-shift, 0px)) rotate(-1deg);
+  transition: transform 150ms linear;
+}
+@utility story-link {
+  position: relative;
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    content: "";
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 300ms ease;
+  }
+  &:hover::after { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes marquee-slide {
+  to { transform: translateX(-50%); }
+}
 @utility portrait-shell {
   overflow: hidden;
   border: 0.75rem solid var(--card);
@@ -195,4 +265,6 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
+  .marquee-track { animation: none; }
+  .hero-line, .kinetic-disc, .project-frame { transform: none; }
 }
