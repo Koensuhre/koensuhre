@@ -92,13 +92,13 @@ function Portfolio() {
           <div className="hidden md:block"><Button variant="coral" onClick={() => go("contact")}>Start project <ArrowRight /></Button></div>
           <Button variant="ghost" size="icon" className="md:hidden" aria-label={menuOpen ? "Menu sluiten" : "Menu openen"} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button>
         </nav>
-        {menuOpen && <div className="border-t border-border bg-background p-5 md:hidden">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)} className="display-text block w-full border-b border-border py-4 text-left text-2xl font-bold">{label}</button>)}<Button variant="coral" className="mt-5 w-full" onClick={() => go("contact")}>Start project</Button></div>}
+        {menuOpen && <div className="fixed inset-x-0 top-[4.75rem] h-[calc(100vh-4.75rem)] animate-in slide-in-from-right-4 border-t border-border bg-background p-5 duration-300 md:hidden">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)} className="display-text block w-full border-b border-border py-4 text-left text-2xl font-bold">{label}</button>)}<Button variant="coral" className="mt-5 w-full" onClick={() => go("contact")}>Start project</Button></div>}
       </header>
 
       <main>
         <section id="home" className="grid-pattern relative flex min-h-[92vh] items-end overflow-hidden border-b border-border px-5 pb-12 pt-32 lg:px-10 lg:pb-18">
           <div className="absolute right-[8%] top-[18%] size-52 rotate-12 border-[24px] border-primary/50 lg:size-80" aria-hidden="true" />
-          <div className="absolute right-[2%] top-[42%] h-24 w-2/5 -rotate-6 bg-signal/90 mix-blend-screen lg:h-32" aria-hidden="true" />
+          <div className="absolute right-[2%] top-[42%] hidden h-24 w-2/5 -rotate-6 bg-signal/90 mix-blend-screen md:block lg:h-32" aria-hidden="true" />
           <div className="relative mx-auto w-full max-w-[1440px]">
             <div className="mb-8 flex items-center gap-3 text-xs font-bold uppercase text-signal"><span className="size-2 animate-pulse rounded-full bg-signal" /> Beschikbaar voor selecte projecten</div>
             <h1 className="display-text max-w-7xl text-[clamp(3.2rem,9.8vw,9rem)] font-bold leading-[0.87]">
