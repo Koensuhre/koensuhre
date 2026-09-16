@@ -302,6 +302,11 @@
   .hero-line, .kinetic-disc, .project-frame { transform: none; }
 }
 
+@media (max-width: 1023px) {
+  .project-frame { transform: none; box-shadow: 8px 8px 0 var(--signal); }
+  .project-frame img { will-change: auto; }
+}
+
 @media (max-width: 640px) {
   .hero-type { font-size: clamp(4.15rem, 21vw, 6rem); line-height: 0.76; }
   .section-title { font-size: clamp(3.35rem, 16.5vw, 5.25rem); line-height: 0.84; overflow-wrap: anywhere; }
