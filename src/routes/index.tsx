@@ -61,7 +61,9 @@ function Portfolio() {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         document.documentElement.style.setProperty("--page-scroll", `${window.scrollY}px`);
+        const wide = window.innerWidth >= 1024;
         document.querySelectorAll<HTMLElement>("[data-scroll-speed]").forEach((element) => {
+          if (!wide) { element.style.setProperty("--scroll-shift", "0px"); return; }
           const speed = Number(element.dataset["scrollSpeed"] ?? 0);
           const rect = element.getBoundingClientRect();
           const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
