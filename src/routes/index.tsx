@@ -39,6 +39,15 @@ const cases = [
   { number: "04", name: "HeyNoona.nl", url: "heynoona.nl", note: "Maatwerk · booking · SEO, GEO & AEO", image: heyNoonaAsset.url, text: "Voor deze startup ontwierp en ontwikkelde ik een volledig dynamische maatwerkwebsite, afgestemd op specifieke gebruikersbehoeften en bedrijfsprocessen. Ik bouwde een geïntegreerd bookingsysteem en een dashboard voor boekingen, beschikbaarheid en beheer. Ook optimaliseerde ik de website voor SEO, AEO en GEO: organische zoekresultaten, directe antwoorden en zichtbaarheid binnen AI-gegenereerde zoekomgevingen." },
 ];
 
+const videos = [
+  { title: "Timmerfabriek de Kievit — in 60 seconden", note: "Bedrijfsfilm · montage", embed: "https://player.vimeo.com/video/1112211386" },
+  { title: "The Real Baker — productieproces", note: "Procesfilm · storytelling", embed: "https://player.vimeo.com/video/1143371348" },
+  { title: "Circulaire geveleconomie", note: "Documentaire stijl", embed: "https://player.vimeo.com/video/1144867205" },
+  { title: "Duet — Warehouse", note: "Sfeer & ruimte", embed: "https://player.vimeo.com/video/1152468073" },
+  { title: "Tecnotion — New HQ", note: "Bedrijfsvideo", embed: "https://player.vimeo.com/video/788309298?h=a33832be69" },
+  { title: "HOUT100% — Roadshow 2026", note: "Event aftermovie", embed: "https://player.vimeo.com/video/1179133274" },
+];
+
 const skillGroups = [
   { label: "Adobe & design", number: "01", lead: "Van idee naar beeld, beweging en een helder systeem.", tools: ["Creative Cloud", "Photoshop", "Illustrator", "InDesign", "Premiere Pro", "After Effects", "Figma"] },
   { label: "Google marketing", number: "02", lead: "Meten wat mensen doen, begrijpen waarom en gericht bijsturen.", tools: ["Google Ads", "Analytics 4", "Tag Manager", "Search Console", "Looker Studio"] },
@@ -148,12 +157,12 @@ function Portfolio() {
             {projectType === "web" ? (
               <div className="mt-24 space-y-36" role="tabpanel" aria-label="Websiteprojecten">{cases.map((project, index) => <article key={project.name} className="grid items-center gap-10 lg:grid-cols-12"><div className={`project-frame group lg:col-span-8 ${index % 2 ? "lg:order-2 lg:translate-x-10" : "lg:-translate-x-10"}`} data-scroll-speed={index % 2 ? "-0.035" : "0.035"}><img src={project.image} alt={`Website van ${project.name}`} width={1280} height={800} loading={index === 0 ? "eager" : "lazy"} decoding="async" className="block aspect-[16/10] h-auto w-full max-w-full object-cover object-top transition duration-1000 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-signal px-4 py-3 font-display text-xl font-bold text-signal-foreground">{project.number}</span></div><div className={`relative z-10 lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs uppercase text-primary">{project.note}</p><h3 className="mt-5 text-4xl font-bold uppercase md:text-6xl">{project.name}</h3><p className="mt-6 text-base leading-8 text-muted-foreground md:text-lg">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="story-link mt-8 inline-flex items-center gap-2 pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
             ) : (
-              <div className="mt-24 border-y-2 border-foreground py-16 md:py-24" role="tabpanel" aria-label="Foto- en videoprojecten">
+              <div className="mt-24 space-y-20" role="tabpanel" aria-label="Foto- en videoprojecten">
                 <div className="grid gap-10 md:grid-cols-12 md:items-end">
-                  <p className="text-xs font-semibold uppercase text-primary md:col-span-3">Binnenkort meer beeld</p>
-                  <h3 className="text-4xl font-bold uppercase leading-none md:col-span-6 md:text-7xl">Foto & video krijgen hier hun eigen podium.</h3>
-                  <p className="max-w-sm leading-7 text-muted-foreground md:col-span-3">Deze ruimte is voorbereid voor fotografie, films en visuele verhalen. Nieuwe projecten kunnen hier straks met beeld, context en credits worden toegevoegd.</p>
+                  <p className="text-xs font-semibold uppercase text-primary md:col-span-3">Film & beeld</p>
+                  <h3 className="text-4xl font-bold uppercase leading-none md:col-span-9 md:text-7xl">Bewegend beeld, eerlijk verteld.</h3>
                 </div>
+                <div className="grid gap-x-8 gap-y-16 md:grid-cols-2">{videos.map((video) => <article key={video.title}><div className="project-frame aspect-video w-full overflow-hidden"><iframe src={video.embed} title={`Video: ${video.title}`} loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className="h-full w-full border-0" /></div><p className="mt-5 text-xs uppercase text-primary">{video.note}</p><h4 className="mt-2 font-display text-2xl font-bold uppercase md:text-3xl">{video.title}</h4></article>)}</div>
               </div>
             )}
           </div>
