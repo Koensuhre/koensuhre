@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type FormEvent, type UIEvent } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, Check, ExternalLink, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import webagency from "@/assets/case-webagency.jpg";
-import heynoona from "@/assets/case-heynoona.jpg";
-import werkgenoten from "@/assets/case-werkgenoten.jpg";
+import realBakerAsset from "@/assets/case-therealbaker.webp.asset.json";
+import jongeSpecialistAsset from "@/assets/case-dejongespecialist.png.asset.json";
+import webAgencyAsset from "@/assets/case-web-agency-twente.png.asset.json";
+import heyNoonaAsset from "@/assets/case-heynoona.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,9 +33,10 @@ const disciplines = [
 ];
 
 const cases = [
-  { number: "01", name: "Web Agency Twente", url: "webagencytwente.nl", note: "Digitale identiteit en website", image: webagency, text: "Een heldere website voor een bureau uit Twente. Rust in de structuur laat expertise en lokaal karakter spreken." },
-  { number: "02", name: "Hey Noona", url: "heynoona.nl", note: "Merk, web en beeld", image: heynoona, text: "Een expressieve merkwereld waarin verhalen, fotografie en digitaal ontwerp als één geheel aanvoelen." },
-  { number: "03", name: "Werkgenoten", url: "werkgenoten.online", note: "Platform en gebruikservaring", image: werkgenoten, text: "Een toegankelijk platform voor nieuwe ontmoetingen op de werkvloer, met ruimte voor twee verschillende doelgroepen." },
+  { number: "01", name: "The Real Baker", url: "therealbaker.nl", note: "Strategie · webdesign · foto & video", image: realBakerAsset.url, text: "Voor The Real Baker heb ik de bestaande website volledig heruitgevonden en vanaf de basis opnieuw opgebouwd. De focus lag op een sterkere merkpositionering, een heldere digitale strategie en een optimale gebruikerservaring. Het aanbod is duidelijker gepresenteerd, de doelgroep wordt gerichter aangesproken en de online vindbaarheid is verbeterd. Voor de visuele merkbeleving ontwikkelde ik ook de bedrijfsvideo en verzorgde ik de fotografie." },
+  { number: "02", name: "De Jonge Specialist", url: "dejongespecialist.nl", note: "Rebranding · development · fotografie", image: jongeSpecialistAsset.url, text: "Voor De Jonge Specialist heb ik de bestaande website gerebrand en opnieuw opgebouwd. De uitstraling is gemoderniseerd, de gebruiksvriendelijkheid verbeterd en het beheer voor de organisatie vereenvoudigd. Ook optimaliseerde ik de structuur, contentpresentatie en technische werking. Ik verzorg doorlopend onderhoud, updates en conversie- en gebruiksoptimalisaties, en maakte de fotografie voor de vernieuwde online uitstraling." },
+  { number: "03", name: "Web Agency Twente", url: "webagencytwente.nl", note: "UX · conversie · SEO", image: webAgencyAsset.url, text: "Voor deze startup ontwikkelde ik een moderne, conversiegerichte website. Vanuit de strategische basis paste ik UI- en UX-principes toe voor een intuïtieve klantreis die bezoekers gericht naar contactmomenten en leads begeleidt. Daarnaast verzorgde ik de technische en contentmatige SEO-optimalisatie en een linkbuildingstrategie om de online autoriteit en organische vindbaarheid te versterken." },
+  { number: "04", name: "HeyNoona.nl", url: "heynoona.nl", note: "Maatwerk · booking · SEO, GEO & AEO", image: heyNoonaAsset.url, text: "Voor deze startup ontwierp en ontwikkelde ik een volledig dynamische maatwerkwebsite, afgestemd op specifieke gebruikersbehoeften en bedrijfsprocessen. Ik bouwde een geïntegreerd bookingsysteem en een dashboard voor boekingen, beschikbaarheid en beheer. Ook optimaliseerde ik de website voor SEO, AEO en GEO: organische zoekresultaten, directe antwoorden en zichtbaarheid binnen AI-gegenereerde zoekomgevingen." },
 ];
 
 const skillGroups = [
@@ -46,6 +48,7 @@ const skillGroups = [
 function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [projectType, setProjectType] = useState<"web" | "media">("web");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -95,7 +98,7 @@ function Portfolio() {
           <div className="kinetic-disc absolute -right-12 top-28 size-56 sm:-right-24 sm:size-72 md:size-[30rem]" data-scroll-speed="0.08" aria-hidden="true" />
           <div className="mx-auto w-full max-w-[1380px]">
             <div className="mb-8 flex items-center justify-between border-b-2 border-foreground pb-4 text-xs font-medium uppercase">
-              <span>Portfolio / 2026</span><span className="hidden sm:block">Enschede — Nederland</span>
+              <span>Portfolio / 2026</span><span className="hidden sm:block">Almelo — Nederland</span>
             </div>
             <h1 className="hero-type relative z-10 font-bold uppercase">
               <span className="hero-line hero-line-left">Web</span>
@@ -114,7 +117,7 @@ function Portfolio() {
 
         <section id="over" className="overflow-hidden border-b-2 border-foreground px-6 py-28 lg:px-10 lg:py-44">
           <div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12">
-            <div className="reveal lg:col-span-4"><Eyebrow text="Over" /><p className="mt-8 max-w-xs text-sm leading-7 text-muted-foreground">Vanuit Enschede werk ik met organisaties en mensen die aandacht hebben voor wat ze maken.</p></div>
+            <div className="reveal lg:col-span-4"><Eyebrow text="Over" /><p className="mt-8 max-w-xs text-sm leading-7 text-muted-foreground">Vanuit Almelo werk ik met organisaties en mensen die aandacht hebben voor wat ze maken.</p></div>
             <div className="reveal lg:col-span-8"><h2 className="section-title max-w-6xl uppercase">Tussen idee en <span className="serif-cut text-primary">uitvoering</span> voel ik me thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
           </div>
         </section>
@@ -128,8 +131,29 @@ function Portfolio() {
         <SkillSlider />
 
         <section id="cases" className="px-6 py-28 lg:px-10 lg:py-44">
-          <div className="mx-auto max-w-[1380px]"><div className="reveal flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><Eyebrow text="Geselecteerd werk" /><h2 className="section-title mt-7 uppercase">Werk/<span className="serif-cut text-primary">03</span></h2></div><p className="max-w-sm leading-7 text-muted-foreground">Een selectie van projecten waarin strategie, ontwerp en uitvoering elkaar aanvullen.</p></div>
-            <div className="mt-24 space-y-36">{cases.map((project, index) => <article key={project.name} className="reveal grid items-center gap-10 lg:grid-cols-12"><div className={`project-frame group lg:col-span-8 ${index % 2 ? "lg:order-2 lg:translate-x-10" : "lg:-translate-x-10"}`} data-scroll-speed={index % 2 ? "-0.035" : "0.035"}><img src={project.image} alt={`Ontwerp voor ${project.name}`} width={1280} height={912} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-1000 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-signal px-4 py-3 font-display text-xl font-bold text-signal-foreground">{project.number}</span></div><div className={`relative z-10 lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs uppercase text-primary">{project.note}</p><h3 className="mt-5 text-4xl font-bold uppercase md:text-6xl">{project.name}</h3><p className="mt-6 text-lg leading-8 text-muted-foreground">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="story-link mt-8 inline-flex items-center gap-2 pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
+          <div className="mx-auto max-w-[1380px]">
+            <div className="reveal flex flex-col justify-between gap-10 md:flex-row md:items-end">
+              <div><Eyebrow text="Geselecteerd werk" /><h2 className="section-title mt-7 uppercase">Werk/<span className="serif-cut text-primary">04</span></h2></div>
+              <div className="max-w-md">
+                <p className="leading-7 text-muted-foreground">Een selectie waarin strategie, ontwerp, techniek en beeld elkaar aanvullen.</p>
+                <div className="mt-7 inline-flex border-2 border-foreground p-1" role="tablist" aria-label="Soort projecten">
+                  <Button role="tab" aria-selected={projectType === "web"} variant={projectType === "web" ? "default" : "ghost"} className="rounded-none" onClick={() => setProjectType("web")}>Websites</Button>
+                  <Button role="tab" aria-selected={projectType === "media"} variant={projectType === "media" ? "default" : "ghost"} className="rounded-none" onClick={() => setProjectType("media")}>Foto & video</Button>
+                </div>
+              </div>
+            </div>
+
+            {projectType === "web" ? (
+              <div className="mt-24 space-y-36" role="tabpanel" aria-label="Websiteprojecten">{cases.map((project, index) => <article key={project.name} className="reveal grid items-center gap-10 lg:grid-cols-12"><div className={`project-frame group lg:col-span-8 ${index % 2 ? "lg:order-2 lg:translate-x-10" : "lg:-translate-x-10"}`} data-scroll-speed={index % 2 ? "-0.035" : "0.035"}><img src={project.image} alt={`Website van ${project.name}`} width={1280} height={800} loading="lazy" className="aspect-[16/10] w-full object-cover object-top transition duration-1000 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-signal px-4 py-3 font-display text-xl font-bold text-signal-foreground">{project.number}</span></div><div className={`relative z-10 lg:col-span-4 ${index % 2 ? "lg:order-1" : "lg:col-start-9"}`}><p className="text-xs uppercase text-primary">{project.note}</p><h3 className="mt-5 text-4xl font-bold uppercase md:text-6xl">{project.name}</h3><p className="mt-6 text-base leading-8 text-muted-foreground md:text-lg">{project.text}</p><a href={`https://${project.url}`} target="_blank" rel="noreferrer" className="story-link mt-8 inline-flex items-center gap-2 pb-1 text-sm">{project.url} <ExternalLink className="size-4" /></a></div></article>)}</div>
+            ) : (
+              <div className="mt-24 border-y-2 border-foreground py-16 md:py-24" role="tabpanel" aria-label="Foto- en videoprojecten">
+                <div className="grid gap-10 md:grid-cols-12 md:items-end">
+                  <p className="text-xs font-semibold uppercase text-primary md:col-span-3">Binnenkort meer beeld</p>
+                  <h3 className="text-4xl font-bold uppercase leading-none md:col-span-6 md:text-7xl">Foto & video krijgen hier hun eigen podium.</h3>
+                  <p className="max-w-sm leading-7 text-muted-foreground md:col-span-3">Deze ruimte is voorbereid voor fotografie, films en visuele verhalen. Nieuwe projecten kunnen hier straks met beeld, context en credits worden toegevoegd.</p>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -142,7 +166,7 @@ function Portfolio() {
               </div></div></section>
       </main>
 
-      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p><div className="mt-4 flex flex-col gap-1 text-sm"><a href="mailto:koensuhre@gmail.com" className="transition-colors hover:text-foreground">koensuhre@gmail.com</a><a href="tel:+31623816297" className="transition-colors hover:text-foreground">06 238 16 297</a></div></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© {new Date().getFullYear()}</p></div></footer>
+      <footer className="px-6 pb-10 lg:px-10"><div className="mx-auto flex max-w-[1380px] flex-col gap-8 border-t border-border pt-9 md:flex-row md:items-end md:justify-between"><div><p className="font-display text-xl font-medium">Koen Suhre</p><p className="mt-2 text-sm text-muted-foreground">Design · Development · Fotografie · Film</p><div className="mt-4 flex flex-col gap-1 text-sm"><a href="mailto:koensuhre@gmail.com" className="transition-colors hover:text-foreground">koensuhre@gmail.com</a><a href="tel:+31623816297" className="transition-colors hover:text-foreground">06 238 16 297</a></div></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)}>{label}</button>)}</div><p className="text-xs text-muted-foreground">© 2026</p></div></footer>
     </div>
   );
 }
