@@ -224,7 +224,7 @@ function SkillSlider() {
           </article>
         ))}
       </div>
-      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className={`h-full bg-primary transition-[width] duration-500 ${active === 0 ? "w-1/3" : active === 1 ? "w-2/3" : "w-full"}`} /></div></div>
+      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className="h-full bg-primary transition-[width] duration-500" style={{ width: `${((active + 1) / skillGroups.length) * 100}%` }} /></div></div>
     </section>
   );
 }
