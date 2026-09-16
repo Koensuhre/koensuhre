@@ -39,6 +39,15 @@ const cases = [
   { number: "04", name: "HeyNoona.nl", url: "heynoona.nl", note: "Maatwerk · booking · SEO, GEO & AEO", image: heyNoonaAsset.url, text: "Voor deze startup ontwierp en ontwikkelde ik een volledig dynamische maatwerkwebsite, afgestemd op specifieke gebruikersbehoeften en bedrijfsprocessen. Ik bouwde een geïntegreerd bookingsysteem en een dashboard voor boekingen, beschikbaarheid en beheer. Ook optimaliseerde ik de website voor SEO, AEO en GEO: organische zoekresultaten, directe antwoorden en zichtbaarheid binnen AI-gegenereerde zoekomgevingen." },
 ];
 
+const videos = [
+  { title: "Timmerfabriek de Kievit — in 60 seconden", note: "Bedrijfsfilm · montage", embed: "https://player.vimeo.com/video/1112211386" },
+  { title: "The Real Baker — productieproces", note: "Procesfilm · storytelling", embed: "https://player.vimeo.com/video/1143371348" },
+  { title: "Circulaire geveleconomie", note: "Documentaire stijl", embed: "https://player.vimeo.com/video/1144867205" },
+  { title: "Duet — Warehouse", note: "Sfeer & ruimte", embed: "https://player.vimeo.com/video/1152468073" },
+  { title: "Tecnotion — New HQ", note: "Bedrijfsvideo", embed: "https://player.vimeo.com/video/788309298?h=a33832be69" },
+  { title: "HOUT100% — Roadshow 2026", note: "Event aftermovie", embed: "https://player.vimeo.com/video/1179133274" },
+];
+
 const skillGroups = [
   { label: "Adobe & design", number: "01", lead: "Van idee naar beeld, beweging en een helder systeem.", tools: ["Creative Cloud", "Photoshop", "Illustrator", "InDesign", "Premiere Pro", "After Effects", "Figma"] },
   { label: "Google marketing", number: "02", lead: "Meten wat mensen doen, begrijpen waarom en gericht bijsturen.", tools: ["Google Ads", "Analytics 4", "Tag Manager", "Search Console", "Looker Studio"] },
