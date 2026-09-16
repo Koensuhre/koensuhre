@@ -52,6 +52,7 @@ const skillGroups = [
   { label: "Adobe & design", number: "01", lead: "Van idee naar beeld, beweging en een helder systeem.", tools: ["Creative Cloud", "Photoshop", "Illustrator", "InDesign", "Premiere Pro", "After Effects", "Figma"] },
   { label: "Google marketing", number: "02", lead: "Meten wat mensen doen, begrijpen waarom en gericht bijsturen.", tools: ["Google Ads", "Analytics 4", "Tag Manager", "Search Console", "Looker Studio"] },
   { label: "CMS & automation", number: "03", lead: "Digitale omgevingen die prettig blijven werken en meegroeien.", tools: ["WordPress", "Webflow", "HubSpot", "Zapier"] },
+  { label: "Vindbaarheid & marketing", number: "04", lead: "Zichtbaar waar mensen zoeken: in zoekmachines, de regio en AI-antwoorden.", tools: ["SEO", "Local SEO — online vindbaarheid in de regio", "AI search (AEO & GEO) — vindbaarheid in AI-antwoorden"] },
 ] as const;
 
 function Portfolio() {
@@ -118,7 +119,7 @@ function Portfolio() {
             </h1>
             <div className="mt-10 grid gap-8 border-t-2 border-foreground pt-7 md:grid-cols-3 md:items-end">
               <p className="max-w-sm text-lg leading-snug">Ik ontwerp en bouw digitale ervaringen waarin beeld, techniek en verhaal samenkomen.</p>
-              <p className="text-sm leading-6 text-muted-foreground md:col-start-2">Webdesign · development<br />fotografie · film · strategie</p>
+              <p className="text-sm leading-6 text-muted-foreground md:col-start-2">Webdesign · development<br />fotografie · film · strategie<br />SEO · content · online marketing</p>
               <button onClick={() => go("cases")} className="group ml-auto flex size-24 items-center justify-center rounded-full border-2 border-foreground transition-colors hover:bg-foreground hover:text-background" aria-label="Bekijk mijn werk"><ArrowDown className="size-7 transition-transform group-hover:translate-y-2" /></button>
             </div>
           </div>
@@ -128,7 +129,7 @@ function Portfolio() {
 
         <section id="over" className="overflow-hidden border-b-2 border-foreground px-6 py-28 lg:px-10 lg:py-44">
           <div className="mx-auto grid max-w-[1380px] gap-14 lg:grid-cols-12">
-            <div className="reveal lg:col-span-4"><Eyebrow text="Over" /><p className="mt-8 max-w-xs text-sm leading-7 text-muted-foreground">Vanuit Almelo werk ik met organisaties en mensen die aandacht hebben voor wat ze maken.</p></div>
+            <div className="reveal lg:col-span-4"><Eyebrow text="Over" /></div>
             <div className="reveal lg:col-span-8"><h2 className="section-title max-w-6xl uppercase">Tussen idee en <span className="serif-cut text-primary">uitvoering</span> voel ik me thuis.</h2><p className="mt-10 max-w-2xl text-lg leading-8 text-muted-foreground">Ik ben webdesigner, developer en beeldmaker. Daardoor kan ik een project als geheel bekijken: wat het moet vertellen, hoe het moet voelen en hoe het technisch prettig blijft werken. Soms begint dat met een gesprek, soms met een camera of een schets.</p></div>
           </div>
         </section>
@@ -168,7 +169,7 @@ function Portfolio() {
           </div>
         </section>
 
-        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><Eyebrow text="Werkwijze" light /><h2 className="section-title mt-7 max-w-6xl uppercase">Rust in het proces.<br /><span className="serif-cut text-signal">Ruimte voor ideeën.</span></h2><div className="mt-20 grid gap-10 md:grid-cols-4">{[["01", "Luisteren", "We beginnen bij de context, de mensen en de vraag achter de vraag."], ["02", "Verkennen", "Richting ontstaat in schetsen, woorden, beelden en kleine experimenten."], ["03", "Maken", "Ontwerp en techniek groeien samen, met regelmatige momenten om te kijken."], ["04", "Verfijnen", "Na de eerste versie blijven details, snelheid en inhoud aandacht krijgen."]].map(([number, title, text]) => <article key={title} className="reveal border-t-2 border-background/40 pt-7"><span className="text-xs text-signal">{number}</span><h3 className="mt-10 text-2xl font-bold uppercase">{title}</h3><p className="mt-4 text-sm leading-7 text-background/65">{text}</p></article>)}</div></div></section>
+        <section id="aanpak" className="bg-foreground px-6 py-28 text-background lg:px-10 lg:py-40"><div className="mx-auto max-w-[1380px]"><h2 className="section-title max-w-6xl uppercase">Rust in het proces.<br /><span className="serif-cut text-signal">Ruimte voor ideeën.</span></h2></div></section>
 
         
 
@@ -223,7 +224,7 @@ function SkillSlider() {
           </article>
         ))}
       </div>
-      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className={`h-full bg-primary transition-[width] duration-500 ${active === 0 ? "w-1/3" : active === 1 ? "w-2/3" : "w-full"}`} /></div></div>
+      <div className="mx-auto mt-3 flex max-w-[1380px] items-center gap-5 px-6 lg:px-10"><span className="text-xs uppercase text-muted-foreground">Swipe / sleep</span><div className="h-1 flex-1 overflow-hidden bg-border"><div className="h-full bg-primary transition-[width] duration-500" style={{ width: `${((active + 1) / skillGroups.length) * 100}%` }} /></div></div>
     </section>
   );
 }
