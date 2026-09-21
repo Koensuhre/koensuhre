@@ -2,10 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type FormEvent, type UIEvent } from "react";
 import { ArrowDown, ArrowLeft, ArrowRight, Check, ExternalLink, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import realBakerAsset from "@/assets/case-therealbaker.webp.asset.json";
-import jongeSpecialistAsset from "@/assets/case-dejongespecialist.png.asset.json";
-import webAgencyAsset from "@/assets/case-web-agency-twente.png.asset.json";
-import heyNoonaAsset from "@/assets/case-heynoona.webp.asset.json";
+import realBakerAsset from "@/assets/therealbaker.png";
+import jongeSpecialistAsset from "@/assets/dejongespecialist.png";
+import webAgencyAsset from "@/assets/web agency twente.png";
+import heyNoonaAsset from "@/assets/heynoona.nl.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
